@@ -1,0 +1,25 @@
+display_information:
+  name: idea_collector
+features:
+  bot_user:
+    display_name: idea_collector
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+      - chat:write.public
+      - im:read
+      - im:write
+      - im:history
+settings:
+  event_subscriptions:
+    request_url: https://YOUR_APP_URL/slack/events
+    bot_events:
+      - message.im
+  interactivity:
+    is_enabled: true
+    request_url: https://YOUR_APP_URL/slack/events
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

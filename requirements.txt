@@ -1,0 +1,6 @@
+boto3==1.37.33
+openai==1.72.0
+python-dotenv==1.1.0
+requests==2.32.3
+slack-bolt==1.18.0
+slack_sdk==3.35.0
