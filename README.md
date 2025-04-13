@@ -3,7 +3,7 @@
 - アイデアを送信することでOpanAIのAPIを通じてアイデアの要約および分類を行いNotionのデータベースに整理してくれるSlackのbotです。
 
 ## 動作例
-<video src="movie/example.mp4" controls loop autoplay muted></video>
+https://github.com/hryuki/slack-bot-idea-collector/blob/main/movie/example.mp4
 
 ## 導入方法
 ### 1. SlackのAppを作成する.
