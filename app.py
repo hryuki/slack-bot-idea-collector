@@ -7,6 +7,8 @@ from datetime import datetime
 from openai_processor import OpenAIProcessor
 
 from notion_connector import add_idea_to_database
+
+
 # 環境変数を読み込む
 load_dotenv('./env/.env')
 
@@ -19,9 +21,11 @@ app = App(
   # これがない場合、app_mentionに反応はできるけどsayする前にLambdaが終了してしまい、ボットが返信完了できない
   process_before_response=True,
 )
+
 idea_processor = OpenAIProcessor(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
+
 
 # メンションのイベントを受信したときに実行されるコード
 @app.event("message")
@@ -64,7 +68,7 @@ def onAppDM(client: WebClient, event: dict):
     )
     
 @app.action("add-idea-button")
-def handle_add_idea_button(ack, body, client: WebClient):
+def handle_add_idea_button(ack: function, body: dict, client: WebClient):
     # ボタンのアクションを受け取ったときの処理
     ack()
     # ボタンを無効化する
@@ -79,7 +83,7 @@ def handle_add_idea_button(ack, body, client: WebClient):
         ts=body['container']['thread_ts'],
     )
     # スレッドの最初のメッセージを取得する
-    idea_text = thread_messages['messages'][0]['text']
+    idea_text: str = thread_messages['messages'][0]['text']
     _idea_text = idea_text.replace("\n", "")
     # アイデアの要約とカテゴリを取得する
     summary, categories = idea_processor.process_idea_text(idea_text)
@@ -107,7 +111,7 @@ def handle_add_idea_button(ack, body, client: WebClient):
     )
 
 @app.action("cancel-button")
-def handle_cancel_button(ack, body, client: WebClient):
+def handle_cancel_button(ack: function, body: dict, client: WebClient):
     # ボタンのアクションを受け取ったときの処理
     ack()
     # ボタンを無効化する
