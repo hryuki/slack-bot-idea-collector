@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  eagle:
+    build:
+      dockerfile: Dockerfile_dev
+    volumes:
+      - ./:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    tty: true
+
