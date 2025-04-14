@@ -21,6 +21,7 @@ app = App(
   # これがない場合、app_mentionに反応はできるけどsayする前にLambdaが終了してしまい、ボットが返信完了できない
   process_before_response=True,
 )
+receiver = SlackRequestHandler(app)
 
 idea_processor = OpenAIProcessor(
     api_key=os.environ.get("OPENAI_API_KEY"),
@@ -121,6 +122,12 @@ def handle_cancel_button(ack: function, body: dict, client: WebClient):
         text="アイデア追加をキャンセルしました。",
     )
 
+def lambda_handler(event, context):
+    if event['headers'].get('x-slack-retry-num') is not None: 
+        return { 'statusCode': 200, 'body': "No need to resend"}
+    return receiver.handle(event, context)
+
 if __name__ == "__main__":
-    # Lambdaのテスト用
-    app.start(port=int(os.environ.get("PORT", 3000)))
+    # テスト用
+    # app.start(port=int(os.environ.get("PORT", 3000)))
+    pass
