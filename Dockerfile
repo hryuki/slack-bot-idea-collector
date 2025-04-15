@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/python:3.10
+FROM public.ecr.aws/lambda/python:3.11
 
 COPY requirements.txt app.py notion_connector.py openai_processor.py ${LAMBDA_TASK_ROOT}/
 
